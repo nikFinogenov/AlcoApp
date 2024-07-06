@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.24760386149088542" />
         <entry key="app/src/main/res/layout/activity_weekly_report.xml" value="0.2598958333333333" />
         <entry key="app/src/main/res/layout/add_drink.xml" value="0.31567028985507245" />
+        <entry key="app/src/main/res/layout/item_report_row.xml" value="0.21614583333333334" />
         <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2745" />
       </map>
     </option>
