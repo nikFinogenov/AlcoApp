@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/tvTotal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <!-- Non-editable text field for last time -->
+    <TextView
+        android:id="@+id/tvLastTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last time"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <!-- Non-editable text field for last time value -->
+    <TextView
+        android:id="@+id/tvLastTimeValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Last time value"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <!-- Non-editable text field for total -->
+    <TextView
+        android:id="@+id/tvTotalAgain"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Total"
+        android:textSize="18sp"
+        android:padding="8dp" />
+
+    <!-- Non-editable text field for this week/this month -->
+
+    <!-- Empty view to take up remaining space -->
+    <TextView
+        android:id="@+id/tvThisWeekOrMonth"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="8dp"
+        android:text="This week"
+        android:textSize="18sp" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Plus button for new entry at the bottom -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="50dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/btnEntryLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_arrow_left_24" />
+
+        <Button
+            android:id="@+id/btnAddNewEntry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:padding="16dp"
+            android:text="+" />
+
+        <ImageButton
+            android:id="@+id/btnEntryRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:padding="16dp"
+            android:src="@drawable/ic_baseline_arrow_right_24" />
+    </LinearLayout>
+
+
+</LinearLayout>
