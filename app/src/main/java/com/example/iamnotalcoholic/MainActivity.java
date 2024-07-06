@@ -66,13 +66,11 @@ public class MainActivity extends AppCompatActivity {
     public void WeeklyReportClick(View v) {
         Intent intent = new Intent(this, WeeklyReport.class);
         startActivity(intent);
-        Activity activity = (Activity) v.getContext();
-        activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
+        overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
     }
     public void LastPartyClick(View v) {
-        Intent intent = new Intent(v.getContext(), LastParty.class);
+        Intent intent = new Intent(this, LastParty.class);
         startActivity(intent);
-        Activity activity = (Activity) v.getContext();
-        activity.overridePendingTransition(R.anim.animation_enter_reverse, R.anim.animation_leave_reverse);
+        overridePendingTransition(R.anim.animation_enter_reverse, R.anim.animation_leave_reverse);
     }
 }

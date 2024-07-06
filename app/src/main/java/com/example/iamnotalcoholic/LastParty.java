@@ -31,8 +31,7 @@ public class LastParty extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 startActivity(intent);
-                Activity activity = unwrap(v.getContext());
-                activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
+                overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
             }
         });
     }

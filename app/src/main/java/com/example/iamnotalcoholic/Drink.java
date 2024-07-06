@@ -16,6 +16,10 @@ public class Drink {
     }
     @Override
     public String toString() {
-        return this.type + " " + this.amount + " " + this.price + " " + this.promile + " " + this.date + " \n";
+        return "Type: " + type + "\n" +
+                "Volume: " + amount + "\n" +
+                "Strength: " + promile + "\n" +
+                "Price: " + price + "\n" +
+                "Date: " + date;
     }
 }

@@ -26,13 +26,6 @@ public class AddPage extends AppCompatActivity {
     private String date;
     private CheckBox checkBox;
 
-//    @Deprecated
-//    public void onBackPressed(View view) {
-//        super.onBackPressed();
-//        Intent intent = new Intent(view.getContext(), MainActivity.class);
-//        view.getContext().startActivity(intent);
-//    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +48,7 @@ public class AddPage extends AppCompatActivity {
         int month = calendar.get(Calendar.MONTH);
         int dayOfMonth = calendar.get(Calendar.DAY_OF_MONTH);
 
-        DatePickerDialog datePickerDialog = new DatePickerDialog(v.getContext(),
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
                     // Обновляем выбранную дату в TextView
                     date = selectedDayOfMonth + "." + (selectedMonth + 1) + "." + selectedYear;
@@ -76,7 +69,7 @@ public class AddPage extends AppCompatActivity {
         }
     }
     public void onDoneClick(View view) {
-        SQLiteDatabase db = view.getContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS drinks (type TEXT, value INTEGER, price INTEGER, promile INTEGER, date TEXT)");
         if(type.getText().toString().compareTo("") == 0 || amount.getText().toString().compareTo("") == 0) {
             err.setVisibility(View.VISIBLE);
@@ -90,8 +83,6 @@ public class AddPage extends AppCompatActivity {
             db.execSQL(sql);
             db.close();
 
-//        view.getContext().deleteDatabase("app.db");
-
             err.setVisibility(View.INVISIBLE);
             type.setText("");
             amount.setText("");
@@ -100,12 +91,6 @@ public class AddPage extends AppCompatActivity {
             checkBox.setChecked(true);
             dateTextView.setVisibility(View.INVISIBLE);
             finish();
-//            Intent intent = new Intent(view.getContext(), MainActivity.class);
-//            startActivity(intent);
         }
-
-//        Activity activity = (Activity)view.getContext();
-//        onBackPressed();
-//        onBackPressedDispatcher.onBackPressed()
     }
 }
