@@ -14,11 +14,6 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
     private TextView tvThisWeekOrMonth;
 
-    @Deprecated
-    public void onBackPressed(View v) {
-        System.exit(0);
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,18 +60,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public void addPageClick(View v) {
-        Intent intent = new Intent(v.getContext(), AddPage.class);
-        v.getContext().startActivity(intent);
+        Intent intent = new Intent(this, AddPage.class);
+        startActivity(intent);
     }
     public void WeeklyReportClick(View v) {
-        Intent intent = new Intent(v.getContext(), WeeklyReport.class);
-        v.getContext().startActivity(intent);
+        Intent intent = new Intent(this, WeeklyReport.class);
+        startActivity(intent);
         Activity activity = (Activity) v.getContext();
         activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
     }
     public void LastPartyClick(View v) {
         Intent intent = new Intent(v.getContext(), LastParty.class);
-        v.getContext().startActivity(intent);
+        startActivity(intent);
         Activity activity = (Activity) v.getContext();
         activity.overridePendingTransition(R.anim.animation_enter_reverse, R.anim.animation_leave_reverse);
     }

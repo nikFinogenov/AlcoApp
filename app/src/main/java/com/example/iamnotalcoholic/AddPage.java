@@ -99,8 +99,9 @@ public class AddPage extends AppCompatActivity {
             promile.setText("");
             checkBox.setChecked(true);
             dateTextView.setVisibility(View.INVISIBLE);
-            Intent intent = new Intent(view.getContext(), MainActivity.class);
-            view.getContext().startActivity(intent);
+            finish();
+//            Intent intent = new Intent(view.getContext(), MainActivity.class);
+//            startActivity(intent);
         }
 
 //        Activity activity = (Activity)view.getContext();

@@ -30,7 +30,7 @@ public class LastParty extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
-                v.getContext().startActivity(intent);
+                startActivity(intent);
                 Activity activity = unwrap(v.getContext());
                 activity.overridePendingTransition(R.anim.animation_enter, R.anim.animation_leave);
             }
