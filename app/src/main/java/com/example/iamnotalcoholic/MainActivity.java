@@ -1,5 +1,6 @@
 package com.example.iamnotalcoholic;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContentResolver;
@@ -12,11 +13,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -228,11 +231,58 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
-    public void showDialog() {
+    private void showAboutDialog() {
+        final boolean[] isD = {false};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.about_dialog, null);
+        builder.setView(dialogView);
+
+        ImageView developerImage = dialogView.findViewById(R.id.developerImage);
+        TextView developerText = dialogView.findViewById(R.id.developerText);
+        TextView insp = dialogView.findViewById(R.id.inspirationText);
+
+        // Установка обработчика для кликов
+        developerImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                developerImage.setVisibility(View.GONE);
+                developerText.setVisibility(View.VISIBLE);
+            }
+        });
+        developerText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                developerImage.setVisibility(View.VISIBLE);
+                developerText.setVisibility(View.GONE);
+            }
+        });
+
+        // Установка обработчика для долгих кликов
+        developerImage.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if(isD[0]) {
+                    insp.setText("This app was developed by: ");
+                    developerImage.setImageResource(R.drawable.nf);
+                }
+                else {
+                    insp.setText("Under an inspiration of her >_< <3");
+                    developerImage.setImageResource(R.drawable.daria);
+                }
+                isD[0] = !isD[0];
+                return true;
+            }
+        });
+
+        builder.setPositiveButton("OK", null);
+        builder.create().show();
+    }
+
+    private void showDialog() {
         CustomDialogFragment dialog = new CustomDialogFragment();
         dialog.show(getSupportFragmentManager(), "custom");
     }
-
     private void exportDataToCSV() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ContentResolver resolver = getContentResolver();
@@ -286,9 +336,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.export:
                 exportDataToCSV();
                 return true;
-            case R.id.edit:
-                return true;
+//            case R.id.edit:
+//                return true;
             case R.id.about:
+                showAboutDialog();
                 return true;
         }
         //headerView.setText(item.getTitle());

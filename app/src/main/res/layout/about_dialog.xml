@@ -1,0 +1,40 @@
+<!-- res/layout/about_dialog.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This app is for gathering statistics of how often do you drink alcohol"
+        android:textSize="18sp"
+        android:paddingBottom="16dp" />
+
+    <TextView
+        android:id="@+id/inspirationText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="This app was developed by: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:paddingBottom="16dp" />
+
+    <ImageView
+        android:id="@+id/developerImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/nf"
+        android:layout_gravity="center"
+        android:contentDescription="@string/developer_image" />
+    <TextView
+        android:id="@+id/developerText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(V)0.o.(V)"
+        android:textSize="18sp"
+        android:visibility="gone"
+        android:layout_gravity="center"
+        android:padding="8dp" />
+</LinearLayout>
