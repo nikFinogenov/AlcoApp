@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -19,7 +18,7 @@ public class WeeklyReport extends AppCompatActivity {
 
     private LinearLayout drinkContainer;
 
-    private static String isWeek(int day) {
+    private static String isWeekAndDay(int day) {
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6);
@@ -61,7 +60,7 @@ public class WeeklyReport extends AppCompatActivity {
             int strength = cursor.getInt(2);
             double price = cursor.getDouble(3);
             String date = cursor.getString(4);
-            String dayName = isWeek(Integer.parseInt(date.split("\\.")[0]));
+            String dayName = isWeekAndDay(Integer.parseInt(date.split("\\.")[0]));
                 // Inflate the drink card layout
                 View drinkCard = LayoutInflater.from(this).inflate(R.layout.drink_card, null);
 
@@ -106,6 +105,5 @@ public class WeeklyReport extends AppCompatActivity {
         cursor.close();
         db.close();
     }
-
 
 }
