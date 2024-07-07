@@ -69,7 +69,7 @@ public class AddPage extends AppCompatActivity {
         }
     }
     public void onDoneClick(View view) {
-        SQLiteDatabase db = getBaseContext().openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         db.execSQL("CREATE TABLE IF NOT EXISTS drinks (type TEXT, value INTEGER, price INTEGER, promile INTEGER, date TEXT)");
         if(type.getText().toString().compareTo("") == 0 || amount.getText().toString().compareTo("") == 0) {
             err.setVisibility(View.VISIBLE);
@@ -82,14 +82,6 @@ public class AddPage extends AppCompatActivity {
             String sql = "INSERT INTO drinks (type, value, price, promile, date) VALUES ('" + typeText + "', '" + valueText + "', '" + priceText + "', '" + promileText + "', '" + date + "');";
             db.execSQL(sql);
             db.close();
-
-            err.setVisibility(View.INVISIBLE);
-            type.setText("");
-            amount.setText("");
-            price.setText("");
-            promile.setText("");
-            checkBox.setChecked(true);
-            dateTextView.setVisibility(View.INVISIBLE);
             finish();
         }
     }
