@@ -1,25 +1,37 @@
 package com.example.iamnotalcoholic;
 
 public class Drink {
-    public String type;
-    public Integer amount;
-    public Integer price;
-    public Integer promile;
-    public String date;
+    private String type;
+    private int volume;
+    private int strength;
+    private double price;
+    private String date;
 
-    public Drink(String type, int val, int pr, int pro, String dat) {
+    public Drink(String type, int volume, int strength, double price, String date) {
         this.type = type;
-        this.amount = val;
-        this.price = pr;
-        this.promile = pro;
-        this.date = dat;
+        this.volume = volume;
+        this.strength = strength;
+        this.price = price;
+        this.date = date;
     }
-    @Override
-    public String toString() {
-        return "Type: " + type + "\n" +
-                "Volume: " + amount + "\n" +
-                "Strength: " + promile + "\n" +
-                "Price: " + price + "\n" +
-                "Date: " + date;
+
+    public String getType() {
+        return type;
+    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public String getDate() {
+        return date;
     }
 }
