@@ -52,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main); // Make sure you use the correct layout file name here
+        createDB();
 
         tvThisWeekOrMonth = findViewById(R.id.tvThisWeekOrMonth);
         tvThisWeekOrMonth.setOnClickListener(new View.OnClickListener() {
@@ -227,6 +228,11 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         db.close();
     }
 
+    private void createDB() {
+        SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
+        db.execSQL("CREATE TABLE IF NOT EXISTS drinks (type TEXT, value INTEGER, price INTEGER, promile INTEGER, date TEXT)");
+        db.close();
+    }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -339,6 +345,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
                 exportDataToCSV();
                 return true;
 //            case R.id.edit:
+//                dropBase();
 //                return true;
             case R.id.about:
                 showAboutDialog();
@@ -346,6 +353,10 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         }
         //headerView.setText(item.getTitle());
         return super.onOptionsItemSelected(item);
+    }
+
+    private void dropBase() {
+        getBaseContext().deleteDatabase("app.db");
     }
 
     public void addPageClick(View v) {

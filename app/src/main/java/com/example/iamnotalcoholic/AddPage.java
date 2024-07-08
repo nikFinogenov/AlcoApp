@@ -70,9 +70,9 @@ public class AddPage extends AppCompatActivity {
     }
     public void onDoneClick(View view) {
         SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        db.execSQL("CREATE TABLE IF NOT EXISTS drinks (type TEXT, value INTEGER, price INTEGER, promile INTEGER, date TEXT)");
         if(type.getText().toString().compareTo("") == 0 || amount.getText().toString().compareTo("") == 0) {
             err.setVisibility(View.VISIBLE);
+            db.close();
         }
         else {
             String typeText = type.getText().toString();
