@@ -10,12 +10,27 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 public class CustomAboutFragment extends DialogFragment {
-    private DialogInterface.OnClickListener onOK(int id){
-        SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
-        String sql = String.format("DELETE FROM drinks where rowid = '%d';", id);
-        db.execSQL(sql);
-        db.close();
-        return null;
+
+    private OnDataChangeListener dataChangeListener;
+
+    public void setOnDataChangeListener(OnDataChangeListener listener) {
+        this.dataChangeListener = listener;
+    }
+    private DialogInterface.OnClickListener onOK(final int id){
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
+                String sql = String.format("DELETE FROM drinks where rowid = '%d';", id);
+                db.execSQL(sql);
+                db.close();
+
+                if (dataChangeListener != null) {
+                    dataChangeListener.onDataChanged();
+                }
+            }
+        };
+
     }
 
     @NonNull

@@ -12,10 +12,14 @@ import androidx.annotation.NonNull;
 public class CustomDialogFragment extends DialogFragment {
 
     private DialogInterface.OnClickListener onOK(){
-        SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
-        db.execSQL("DELETE FROM drinks;");
-        db.close();
-        return null;
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
+                db.execSQL("DELETE FROM drinks;");
+                db.close();
+            }
+        };
     }
 
     @NonNull

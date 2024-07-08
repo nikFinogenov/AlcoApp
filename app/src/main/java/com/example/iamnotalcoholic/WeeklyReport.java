@@ -16,7 +16,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
 
-public class WeeklyReport extends AppCompatActivity {
+public class WeeklyReport extends AppCompatActivity implements OnDataChangeListener {
 
     private LinearLayout drinkContainer;
 //    private List<int> idArray;
@@ -33,6 +33,12 @@ public class WeeklyReport extends AppCompatActivity {
         return "not";
     }
 
+    @Override
+    public void onDataChanged() {
+//        drinkContainer.removeAllViews();
+//        loadDataFromDatabase();
+        onCreate(null);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,11 +125,11 @@ public class WeeklyReport extends AppCompatActivity {
                         Bundle args = new Bundle();
                         args.putInt("id", id);
                         dialog.setArguments(args);
+                        dialog.setOnDataChangeListener(WeeklyReport.this);
                         dialog.show(getSupportFragmentManager(), "custom");
                         return false;
                     }
                 });
-
             }
         }
         cursor.close();
