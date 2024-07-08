@@ -129,14 +129,14 @@ public class MainActivity extends AppCompatActivity {
         if(cursor.moveToNext()){
             String value = cursor.getString(0);
             cursor.close();
-            lastValue.setText(String.format("Last time value: %s", value));
+            lastValue.setText(String.format("Last time value: %s(мл)", value));
         }
         else lastValue.setText("Last time value: 0");
         cursor.close();
         cursor = db.rawQuery("SELECT SUM(value) from drinks", null);
         if(cursor.moveToNext()){
             String totalV = cursor.getString(0);
-            if(totalV != null) totalValue.setText(String.format("Total value: %s", totalV));
+            if(totalV != null) totalValue.setText(String.format("Total value: %.2f(л)", Double.parseDouble(totalV)/1000));
             else totalValue.setText("Total value: 0");
         }
         else totalValue.setText("Total value: 0");
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             cursor.close();
         }
         totalF.setText(String.format("Total: %d", count));
-        valueF.setText(String.format("Value: %d", value));
+        valueF.setText(String.format("Value: %.2f(л)", Double.valueOf(value)/1000));
         mostF.setText(String.format("Most drinks on: %s", most));
         mostQF.setText(String.format("Drinks on that day: %d", mostQ));
         db.close();

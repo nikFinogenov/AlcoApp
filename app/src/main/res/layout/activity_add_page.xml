@@ -107,7 +107,7 @@
         android:id="@+id/error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Please enter type and price"
+        android:text="Please enter type and value"
         android:textSize="18sp"
         android:textColor="@color/red"
         android:visibility="invisible"

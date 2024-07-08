@@ -35,9 +35,9 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
 
     @Override
     public void onDataChanged() {
-//        drinkContainer.removeAllViews();
-//        loadDataFromDatabase();
-        onCreate(null);
+        drinkContainer.removeAllViews();
+        loadDataFromDatabase();
+//        onCreate(null);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,9 +95,9 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
                 }
 
                 typeTextView.setText(type);
-                volumeTextView.setText("Volume: " + volume);
+                volumeTextView.setText("Volume: " + volume + "(мл)");
                 strengthTextView.setText("Strength: " + strength);
-                priceTextView.setText("Price: $" + price);
+                priceTextView.setText("Price: ₴" + price);
 
                 // Add the drink card to the container
                 drinkContainer.addView(drinkCard);

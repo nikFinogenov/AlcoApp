@@ -59,9 +59,9 @@ public class LastParty extends AppCompatActivity {
                 drinkCard.findViewById(R.id.dateTextView).setVisibility(View.GONE);
                 drinkCard.findViewById(R.id.dateLine).setVisibility(View.GONE);
                 typeTextView.setText(type);
-                volumeTextView.setText("Volume: " + volume);
+                volumeTextView.setText("Volume: " + volume + "(мл)");
                 strengthTextView.setText("Strength: " + strength);
-                priceTextView.setText("Price: $" + price);
+                priceTextView.setText("Price: ₴" + price);
                 drinkContainer.addView(drinkCard);
                 if (drinkContainer.getChildCount() >= 1) {
                     View divider = new View(this);
