@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.TemporalAdjusters;
@@ -17,6 +19,7 @@ import java.time.temporal.TemporalAdjusters;
 public class WeeklyReport extends AppCompatActivity {
 
     private LinearLayout drinkContainer;
+//    private List<int> idArray;
 
     private static String isWeekAndDay(int day) {
         LocalDate today = LocalDate.now();
@@ -52,7 +55,7 @@ public class WeeklyReport extends AppCompatActivity {
 
     private void loadDataFromDatabase() {
         SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("SELECT * FROM drinks ORDER BY date ASC;", null);
+        Cursor cursor = db.rawQuery("SELECT *, rowid FROM drinks ORDER BY date ASC;", null);
         String lastDate = "";
         while (cursor.moveToNext()) {
             String type = cursor.getString(0);
@@ -60,6 +63,7 @@ public class WeeklyReport extends AppCompatActivity {
             int strength = cursor.getInt(2);
             double price = cursor.getDouble(3);
             String date = cursor.getString(4);
+            int rid = cursor.getInt(5);
             String dayName = isWeekAndDay(Integer.parseInt(date.split("\\.")[0]));
                 // Inflate the drink card layout
                 View drinkCard = LayoutInflater.from(this).inflate(R.layout.drink_card, null);
@@ -100,6 +104,26 @@ public class WeeklyReport extends AppCompatActivity {
                     divider.setBackgroundColor(getResources().getColor(android.R.color.darker_gray));
                     drinkContainer.addView(divider);
                 }
+                drinkCard.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        // Действия при клике на drinkCard
+//                        Toast.makeText(v.getContext(), "Clicked: " + type, Toast.LENGTH_SHORT).show();
+                    }
+                });
+                drinkCard.setOnLongClickListener(new View.OnLongClickListener() {
+                    public boolean onLongClick(View v) {
+                        int id = rid;
+                        CustomAboutFragment dialog = new CustomAboutFragment();
+                        Bundle args = new Bundle();
+                        args.putInt("id", id);
+                        dialog.setArguments(args);
+                        dialog.show(getSupportFragmentManager(), "custom");
+                        return false;
+                    }
+                });
+
             }
         }
         cursor.close();

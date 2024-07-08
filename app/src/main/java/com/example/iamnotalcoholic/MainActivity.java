@@ -136,7 +136,8 @@ public class MainActivity extends AppCompatActivity {
         cursor = db.rawQuery("SELECT SUM(value) from drinks", null);
         if(cursor.moveToNext()){
             String totalV = cursor.getString(0);
-            totalValue.setText(String.format("Total value: %s", totalV));
+            if(totalV != null) totalValue.setText(String.format("Total value: %s", totalV));
+            else totalValue.setText("Total value: 0");
         }
         else totalValue.setText("Total value: 0");
         cursor.close();
@@ -153,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         String currentText = tvThisWeekOrMonth.getText().toString();
         int count = 0;
         int value = 0;
-        String most = "";
+        String most = "Unknown";
         int mostQ = 0;
         if (currentText.equals("This week")) {
             Cursor cursor = db.rawQuery("SELECT date, value FROM drinks ORDER BY date ASC;", null);

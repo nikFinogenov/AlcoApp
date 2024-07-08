@@ -41,8 +41,8 @@ public class LastParty extends AppCompatActivity {
         Cursor cursor = db.rawQuery("Select date from drinks order by date desc limit 1", null);
         if(cursor.moveToNext()) {
             String date = cursor.getString(0);
-            TextView dateTextView = findViewById(R.id.dateParty);
-            dateTextView.setText(date);
+            TextView dateParty = findViewById(R.id.dateParty);
+            dateParty.setText(date);
             String sql = String.format("SELECT * FROM drinks where date = '%s';", date);
             cursor.close();
             cursor = db.rawQuery(sql, null);
@@ -56,6 +56,8 @@ public class LastParty extends AppCompatActivity {
                 TextView volumeTextView = drinkCard.findViewById(R.id.volumeTextView);
                 TextView strengthTextView = drinkCard.findViewById(R.id.strengthTextView);
                 TextView priceTextView = drinkCard.findViewById(R.id.priceTextView);
+                drinkCard.findViewById(R.id.dateTextView).setVisibility(View.GONE);
+                drinkCard.findViewById(R.id.dateLine).setVisibility(View.GONE);
                 typeTextView.setText(type);
                 volumeTextView.setText("Volume: " + volume);
                 strengthTextView.setText("Strength: " + strength);

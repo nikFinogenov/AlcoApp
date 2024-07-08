@@ -10,9 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 public class CustomAboutFragment extends DialogFragment {
-    private DialogInterface.OnClickListener onOK(){
+    private DialogInterface.OnClickListener onOK(int id){
         SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
-        db.execSQL("DELETE FROM drinks;");
+        String sql = String.format("DELETE FROM drinks where rowid = '%d';", id);
+        db.execSQL(sql);
         db.close();
         return null;
     }
@@ -20,12 +21,13 @@ public class CustomAboutFragment extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+        int id = getArguments().getInt("id");
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle("Удалить неделю")
+                .setTitle("Удалить запись")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("Вы уверены что хотите удалить все недельные данные?")
-                .setPositiveButton("OK", onOK())
+                .setMessage("Вы уверены что хотите удалить запись?")
+                .setPositiveButton("OK", onOK(id))
                 .setNegativeButton("Отмена", null)
                 .create();
     }
