@@ -30,7 +30,7 @@ import java.time.LocalDate;
 import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnDataChangeListener{
     private TextView tvThisWeekOrMonth;
     private boolean isLongClick = false;
 
@@ -282,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void showDialog() {
         CustomDialogFragment dialog = new CustomDialogFragment();
+        dialog.setOnDataChangeListener(MainActivity.this);
         dialog.show(getSupportFragmentManager(), "custom");
     }
     private void exportDataToCSV() {
@@ -369,5 +370,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, LastParty.class);
         startActivity(intent);
         overridePendingTransition(R.anim.animation_enter_reverse, R.anim.animation_leave_reverse);
+    }
+
+    @Override
+    public void onDataChanged() {
+        updateMainInfo();
+        updateSubMenu();
     }
 }

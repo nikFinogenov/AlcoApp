@@ -11,6 +11,12 @@ import androidx.annotation.NonNull;
 
 public class CustomDialogFragment extends DialogFragment {
 
+    private OnDataChangeListener dataChangeListener;
+
+    public void setOnDataChangeListener(OnDataChangeListener listener) {
+        this.dataChangeListener = listener;
+    }
+
     private DialogInterface.OnClickListener onOK(){
         return new DialogInterface.OnClickListener() {
             @Override
@@ -18,6 +24,10 @@ public class CustomDialogFragment extends DialogFragment {
                 SQLiteDatabase db = getActivity().openOrCreateDatabase("app.db", android.content.Context.MODE_PRIVATE, null);
                 db.execSQL("DELETE FROM drinks;");
                 db.close();
+
+                if (dataChangeListener != null) {
+                    dataChangeListener.onDataChanged();
+                }
             }
         };
     }
