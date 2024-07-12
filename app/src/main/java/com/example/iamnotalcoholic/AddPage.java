@@ -33,8 +33,11 @@ public class AddPage extends AppCompatActivity {
 
         dateTextView = findViewById(R.id.dateTextView);
         calendar = Calendar.getInstance();
-        date = calendar.get(Calendar.DAY_OF_MONTH) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR);
-        String selectedDate = "  " + date;
+        date = String.format("%04d-%02d-%02d",
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH) + 1,
+                calendar.get(Calendar.DAY_OF_MONTH));
+        String selectedDate = "  " + calendar.get(Calendar.DAY_OF_MONTH) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR);
         dateTextView.setText(selectedDate);
 
         type = findViewById(R.id.editType);
@@ -51,8 +54,11 @@ public class AddPage extends AppCompatActivity {
         DatePickerDialog datePickerDialog = new DatePickerDialog(this,
                 (view, selectedYear, selectedMonth, selectedDayOfMonth) -> {
                     // Обновляем выбранную дату в TextView
-                    date = selectedDayOfMonth + "." + (selectedMonth + 1) + "." + selectedYear;
-                    String selectedDate = "  " + date;
+                    date = String.format("%04d-%02d-%02d",
+                            selectedYear,
+                            selectedMonth,
+                            selectedDayOfMonth);
+                    String selectedDate = "  " + selectedDayOfMonth + "." + (selectedMonth + 1) + "." + selectedYear;
                     dateTextView.setText(selectedDate);
                 }, year, month, dayOfMonth);
 
@@ -62,7 +68,10 @@ public class AddPage extends AppCompatActivity {
         checkBox = findViewById(R.id.enabled);
         if(checkBox.isChecked()) {
             dateTextView.setVisibility(View.INVISIBLE);
-            date = calendar.get(Calendar.DAY_OF_MONTH) + "." + (calendar.get(Calendar.MONTH) + 1) + "." + calendar.get(Calendar.YEAR);
+            date = String.format("%04d-%02d-%02d",
+                    calendar.get(Calendar.YEAR),
+                    calendar.get(Calendar.MONTH) + 1,
+                    calendar.get(Calendar.DAY_OF_MONTH));
         }
         else {
             dateTextView.setVisibility(View.VISIBLE);

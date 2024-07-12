@@ -112,9 +112,10 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         TextView lastValue = findViewById(R.id.tvLastTimeValue);
         TextView totalValue = findViewById(R.id.totalValue);
         SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
-        Cursor cursor = db.rawQuery("SELECT date FROM drinks ORDER BY date DESC LIMIT 1;", null);
+        Cursor cursor = db.rawQuery("SELECT replace(date, '-', '.') FROM drinks ORDER BY date DESC LIMIT 1;", null);
         if(cursor.moveToNext()){
-            String date = cursor.getString(0);
+            String tmp = cursor.getString(0);
+            String date = tmp.split("\\.")[2] + "." + tmp.split("\\.")[1] + "." + tmp.split("\\.")[0];
             cursor.close();
             lastTime.setText(String.format("Last time: %s", date));
         }
@@ -160,7 +161,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         if (currentText.equals("This week")) {
             Cursor cursor = db.rawQuery("SELECT date, value FROM drinks ORDER BY date ASC;", null);
             while (cursor.moveToNext()){
-                if(isWeek(Integer.parseInt(cursor.getString(0).split("\\.")[0]))) {
+                if(isWeek(Integer.parseInt(cursor.getString(0).split("-")[2]))) {
                     count++;
                     value += cursor.getInt(1);
                 }
@@ -168,7 +169,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             cursor.close();
             cursor = db.rawQuery("Select count(*) as num, date from drinks GROUP by date order by num Desc;", null);
             while(cursor.moveToNext()) {
-                if(isWeek(Integer.parseInt(cursor.getString(1).split("\\.")[0]))) {
+                if(isWeek(Integer.parseInt(cursor.getString(1).split("-")[2]))) {
                     mostQ = cursor.getInt(0);
                     most = cursor.getString(1);
                     break;
@@ -179,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         else if (currentText.equals("This month")) {
             Cursor cursor = db.rawQuery("SELECT date, value FROM drinks ORDER BY date;", null);
             while (cursor.moveToNext()) {
-                int month = Integer.parseInt(cursor.getString(0).split("\\.")[1]);
+                int month = Integer.parseInt(cursor.getString(0).split("-")[1]);
                 if(month == LocalDate.now().getMonthValue()) {
                     count++;
                     value += cursor.getInt(1);
@@ -189,8 +190,8 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             cursor.close();
             cursor = db.rawQuery("Select count(*) as num, date from drinks GROUP by date order by num Desc;", null);
             while(cursor.moveToNext()) {
-                if(Integer.parseInt(cursor.getString(1).split("\\.")[1]) == LocalDate.now().getMonthValue()
-                        && Integer.parseInt(cursor.getString(1).split("\\.")[2]) == Year.now().getValue()) {
+                if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue()
+                        && Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue()) {
                     mostQ = cursor.getInt(0);
                     most = cursor.getString(1);
                     break;
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             cursor.close();
             cursor = db.rawQuery("Select count(*) as num, date from drinks GROUP by date order by num Desc;", null);
             while(cursor.moveToNext()) {
-                if(Integer.parseInt(cursor.getString(1).split("\\.")[2]) == Year.now().getValue()) {
+                if(Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue()) {
                     mostQ = cursor.getInt(0);
                     most = cursor.getString(1);
                     break;
@@ -221,9 +222,13 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             }
             cursor.close();
         }
+        String dateMost = most;
+        if(most.compareTo("Unknown") != 0)
+            dateMost = most.split("-")[2] + "." + most.split("-")[1] + "." + most.split("-")[0];
+
         totalF.setText(String.format("Total: %d", count));
         valueF.setText(String.format("Value: %.2f(л)", Double.valueOf(value)/1000));
-        mostF.setText(String.format("Most drinks on: %s", most));
+        mostF.setText(String.format("Most drinks on: %s", dateMost));
         mostQF.setText(String.format("Drinks on that day: %d", mostQ));
         db.close();
     }

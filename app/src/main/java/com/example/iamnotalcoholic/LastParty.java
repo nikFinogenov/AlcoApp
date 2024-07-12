@@ -40,10 +40,11 @@ public class LastParty extends AppCompatActivity {
         SQLiteDatabase db = openOrCreateDatabase("app.db", MODE_PRIVATE, null);
         Cursor cursor = db.rawQuery("Select date from drinks order by date desc limit 1", null);
         if(cursor.moveToNext()) {
-            String date = cursor.getString(0);
+            String tmp = cursor.getString(0);
+            String date = tmp.split("-")[2] + "." + tmp.split("-")[1] + "." + tmp.split("-")[0];
             TextView dateParty = findViewById(R.id.dateParty);
             dateParty.setText(date);
-            String sql = String.format("SELECT * FROM drinks where date = '%s';", date);
+            String sql = String.format("SELECT * FROM drinks where date = '%s';", tmp);
             cursor.close();
             cursor = db.rawQuery(sql, null);
             while (cursor.moveToNext()) {

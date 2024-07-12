@@ -66,11 +66,11 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
         while (cursor.moveToNext()) {
             String type = cursor.getString(0);
             int volume = cursor.getInt(1);
-            int strength = cursor.getInt(2);
-            double price = cursor.getDouble(3);
+            double price = cursor.getDouble(2);
+            double strength = cursor.getDouble(3);
             String date = cursor.getString(4);
             int rid = cursor.getInt(5);
-            String dayName = isWeekAndDay(Integer.parseInt(date.split("\\.")[0]));
+            String dayName = isWeekAndDay(Integer.parseInt(date.split("-")[2]));
                 // Inflate the drink card layout
                 View drinkCard = LayoutInflater.from(this).inflate(R.layout.drink_card, null);
 
@@ -96,7 +96,7 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
 
                 typeTextView.setText(type);
                 volumeTextView.setText("Volume: " + volume + "(мл)");
-                strengthTextView.setText("Strength: " + strength);
+                strengthTextView.setText("Strength: " + strength + "‰");
                 priceTextView.setText("Price: ₴" + price);
 
                 // Add the drink card to the container
