@@ -37,9 +37,9 @@ public class CustomDialogFragment extends DialogFragment {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getActivity());
         return builder
-                .setTitle("Удалить неделю")
+                .setTitle("Удалить всё")
                 .setIcon(android.R.drawable.ic_dialog_alert)
-                .setMessage("Вы уверены что хотите удалить все недельные данные?")
+                .setMessage("Вы уверены что хотите удалить все данные?")
                 .setPositiveButton("OK", onOK())
                 .setNegativeButton("Отмена", null)
                 .create();

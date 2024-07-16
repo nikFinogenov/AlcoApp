@@ -56,7 +56,7 @@ public class AddPage extends AppCompatActivity {
                     // Обновляем выбранную дату в TextView
                     date = String.format("%04d-%02d-%02d",
                             selectedYear,
-                            selectedMonth,
+                            selectedMonth + 1,
                             selectedDayOfMonth);
                     String selectedDate = "  " + selectedDayOfMonth + "." + (selectedMonth + 1) + "." + selectedYear;
                     dateTextView.setText(selectedDate);
