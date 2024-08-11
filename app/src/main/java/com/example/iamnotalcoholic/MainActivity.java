@@ -161,7 +161,9 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         if (currentText.equals("This week")) {
             Cursor cursor = db.rawQuery("SELECT date, value FROM drinks ORDER BY date ASC;", null);
             while (cursor.moveToNext()){
-                if(isWeek(Integer.parseInt(cursor.getString(0).split("-")[2]))) {
+                if(Integer.parseInt(cursor.getString(0).split("-")[1]) == LocalDate.now().getMonthValue() &&
+                        Integer.parseInt(cursor.getString(0).split("-")[0]) == Year.now().getValue() &&
+                        isWeek(Integer.parseInt(cursor.getString(0).split("-")[2]))) {
                     count++;
                     value += cursor.getInt(1);
                 }
@@ -169,7 +171,11 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             cursor.close();
             cursor = db.rawQuery("Select count(*) as num, date from drinks GROUP by date order by num Desc;", null);
             while(cursor.moveToNext()) {
-                if(isWeek(Integer.parseInt(cursor.getString(1).split("-")[2]))) {
+//                if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue()
+//                        && Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue()) {
+                if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue() &&
+                        Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue() &&
+                        isWeek(Integer.parseInt(cursor.getString(1).split("-")[2]))) {
                     mostQ = cursor.getInt(0);
                     most = cursor.getString(1);
                     break;

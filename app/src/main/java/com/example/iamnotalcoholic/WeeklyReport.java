@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.Year;
 import java.time.temporal.TemporalAdjusters;
 
 public class WeeklyReport extends AppCompatActivity implements OnDataChangeListener {
@@ -83,7 +84,10 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
                 TextView priceTextView = drinkCard.findViewById(R.id.priceTextView);
 
                 // Check if the date has changed to display section headers
-            if(dayName.compareTo("not") != 0){
+//            if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue()
+//                    && Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue()) {
+            if(Integer.parseInt(date.split("-")[1]) == LocalDate.now().getMonthValue()
+                && Integer.parseInt(date.split("-")[0]) == Year.now().getValue() && dayName.compareTo("not") != 0){
                 if (!date.equals(lastDate)) {
                     lastDate = date;
                     dateTextView.setVisibility(View.VISIBLE);
