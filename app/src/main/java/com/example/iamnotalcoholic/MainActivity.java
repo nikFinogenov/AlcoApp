@@ -28,18 +28,19 @@ import java.io.OutputStream;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
 public class MainActivity extends AppCompatActivity implements OnDataChangeListener{
     private TextView tvThisWeekOrMonth;
     private boolean isLongClick = false;
 
-    private boolean isWeek(int day) {
+    private boolean isWeek(LocalDate day) {
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6);
-        LocalDate givenDate = LocalDate.of(today.getYear(), today.getMonth(), day);
-        return !givenDate.isAfter(endOfWeek) && !givenDate.isBefore(startOfWeek);
+//        LocalDate givenDate = LocalDate.of(today.getYear(), today.getMonth(), day);
+        return !day.isAfter(endOfWeek) && !day.isBefore(startOfWeek);
     }
 
     @Override
@@ -161,9 +162,11 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
         if (currentText.equals("This week")) {
             Cursor cursor = db.rawQuery("SELECT date, value FROM drinks ORDER BY date ASC;", null);
             while (cursor.moveToNext()){
-                if(Integer.parseInt(cursor.getString(0).split("-")[1]) == LocalDate.now().getMonthValue() &&
-                        Integer.parseInt(cursor.getString(0).split("-")[0]) == Year.now().getValue() &&
-                        isWeek(Integer.parseInt(cursor.getString(0).split("-")[2]))) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate dateDate = LocalDate.parse(cursor.getString(0), formatter);
+                if(dateDate.getMonthValue() == LocalDate.now().getMonthValue() &&
+                        dateDate.getYear() == Year.now().getValue() &&
+                        isWeek(dateDate)) {
                     count++;
                     value += cursor.getInt(1);
                 }
@@ -171,11 +174,13 @@ public class MainActivity extends AppCompatActivity implements OnDataChangeListe
             cursor.close();
             cursor = db.rawQuery("Select count(*) as num, date from drinks GROUP by date order by num Desc;", null);
             while(cursor.moveToNext()) {
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+                LocalDate dateDate = LocalDate.parse(cursor.getString(1), formatter);
 //                if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue()
 //                        && Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue()) {
-                if(Integer.parseInt(cursor.getString(1).split("-")[1]) == LocalDate.now().getMonthValue() &&
-                        Integer.parseInt(cursor.getString(1).split("-")[0]) == Year.now().getValue() &&
-                        isWeek(Integer.parseInt(cursor.getString(1).split("-")[2]))) {
+                if(dateDate.getMonthValue() == LocalDate.now().getMonthValue() &&
+                        dateDate.getYear() == Year.now().getValue() &&
+                        isWeek(dateDate)) {
                     mostQ = cursor.getInt(0);
                     most = cursor.getString(1);
                     break;

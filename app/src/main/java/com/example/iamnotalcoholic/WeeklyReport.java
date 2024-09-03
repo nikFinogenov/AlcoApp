@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Year;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAdjusters;
 
 public class WeeklyReport extends AppCompatActivity implements OnDataChangeListener {
@@ -22,13 +23,13 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
     private LinearLayout drinkContainer;
 //    private List<int> idArray;
 
-    private static String isWeekAndDay(int day) {
+    private static String isWeekAndDay(LocalDate day) {
         LocalDate today = LocalDate.now();
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY));
         LocalDate endOfWeek = startOfWeek.plusDays(6);
-        LocalDate givenDate = LocalDate.of(today.getYear(), today.getMonth(), day);
-        if (!givenDate.isAfter(endOfWeek) && !givenDate.isBefore(startOfWeek)) {
-            return givenDate.getDayOfWeek().toString();
+//        LocalDate givenDate = LocalDate.of(day.getYear(), day.getMonth(), day.);
+        if (!day.isAfter(endOfWeek) && !day.isBefore(startOfWeek)) {
+            return day.getDayOfWeek().toString();
         }
 
         return "not";
@@ -71,7 +72,11 @@ public class WeeklyReport extends AppCompatActivity implements OnDataChangeListe
             double strength = cursor.getDouble(3);
             String date = cursor.getString(4);
             int rid = cursor.getInt(5);
-            String dayName = isWeekAndDay(Integer.parseInt(date.split("-")[2]));
+//            String dayName = isWeekAndDay(Integer.parseInt(date.split("-")[2]));
+//            String string = "January 2, 2010";
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate dateDate = LocalDate.parse(date, formatter);
+            String dayName = isWeekAndDay(dateDate);
                 // Inflate the drink card layout
                 View drinkCard = LayoutInflater.from(this).inflate(R.layout.drink_card, null);
 
